@@ -14,16 +14,15 @@ public class Parser {
     private static Document getPage() throws IOException {
         String url = "https://yandex.uz/pogoda/tashkent?utm_campaign=informer&utm_content=main_informer&utm_medium=web&utm_source=home&lat=41.311151&lon=69.279737";
 
-        Document page = Jsoup.parse(new URL(url), 3000);
+        Document page = Jsoup.parse(new URL(url), 10000);
         return page;
     }
     public static String[] mainMethod() throws IOException {
-        Document page = getPage();
         String temperature = "";
         String conditions = "";
         String[] factWeatherInfo = new String[2];
-        //css query language
         try {
+            Document page = getPage();
             Element informer = page.select("div[class=fact__temp-wrap]").first();
             Element temp = informer.select("span[class=temp__value temp__value_with-unit]").first();
             String strings = informer.select("img").toString();
@@ -55,7 +54,6 @@ public class Parser {
             } else if (strings.contains("bkn-p-ra-n ")){ //ливень night
                 conditions = "bkn-p-ra-n";
             }
-
             factWeatherInfo[0] = temperature;
             factWeatherInfo[1] = conditions;
         }catch (NullPointerException e){
