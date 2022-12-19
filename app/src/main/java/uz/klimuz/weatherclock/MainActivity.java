@@ -8,9 +8,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.io.IOException;
 import java.util.Calendar;
 
@@ -19,16 +17,17 @@ public class MainActivity extends AppCompatActivity {
     TextView weekDayTextVew;
     TextView timeTextVew;
     TextView tempTextView;
-    TextView celsTextView;
     Button button;
     ImageView imageView;
+    ImageView imageView2;
+    TextView temp2TextView;
 
     int month;
     int weekDay;
     int hours;
     int minutes;
     int counter;
-    String[] weatherInfo = new String[2];
+    String[] weatherInfo = new String[4];//0-temp current; 1-image current; 2-temp forecast; 3-image forecast
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
         weekDayTextVew = findViewById(R.id.weekDayTextView);
         timeTextVew = findViewById(R.id.timeTextView);
         tempTextView = findViewById(R.id.tempTextView);
-        celsTextView = findViewById(R.id.celsTextView);
         imageView = findViewById(R.id.imageView);
+        imageView2 = findViewById(R.id.imageView2);
+        temp2TextView = findViewById(R.id.temp2TextView);
 
         button = findViewById(R.id.button);
         timeUpdate();
@@ -71,47 +71,88 @@ public class MainActivity extends AppCompatActivity {
                         tempTextView.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (weatherInfo[0] != null && weatherInfo[1] != null) {
+                                if (weatherInfo[0] != null && weatherInfo[1] != null && weatherInfo[2] != null && weatherInfo[3] != null) {
                                     tempTextView.setText(weatherInfo[0]);
+                                    temp2TextView.setText(weatherInfo[2]);
                                     switch (weatherInfo[1]) {
-                                        case "skc-n":
+                                        case "skc_n":
                                             imageView.setImageResource(R.drawable.skc_n);
                                             break;
-                                        case "skc-d":
+                                        case "skc_d":
                                             imageView.setImageResource(R.drawable.skc_d);
                                             break;
-                                        case "bkn-n":
+                                        case "bkn_n":
                                             imageView.setImageResource(R.drawable.bkn_n);
                                             break;
-                                        case "bkn-d":
+                                        case "bkn_d":
                                             imageView.setImageResource(R.drawable.bkn_d);
                                             break;
-                                        case "ovc-sn":
+                                        case "ovc_sn":
                                             imageView.setImageResource(R.drawable.ovc_sn);
                                             break;
-                                        case "ovc-m-sn":
+                                        case "ovc_m_sn":
                                             imageView.setImageResource(R.drawable.ovc_m_sn);
                                             break;
-                                        case "ovc-m-ra":
+                                        case "ovc_m_ra":
                                             imageView.setImageResource(R.drawable.ovc_m_ra);
                                             break;
                                         case "ovc":
                                             imageView.setImageResource(R.drawable.ovc);
                                             break;
-                                        case "ovc-r-sn":
+                                        case "ovc_r_sn":
                                             imageView.setImageResource(R.drawable.ovc_r_sn);
                                             break;
-                                        case "ovc-r":
+                                        case "ovc_r":
                                             imageView.setImageResource(R.drawable.ovc_r);
                                             break;
-                                        case "bkn-p-ra-d":
+                                        case "bkn_p_ra_d":
                                             imageView.setImageResource(R.drawable.bkn_p_ra_d);
                                             break;
-                                        case "bkn-p-ra-n":
+                                        case "bkn_p_ra_n":
                                             imageView.setImageResource(R.drawable.bkn_p_ra_n);
                                             break;
                                         default:
                                             imageView.setImageResource(R.drawable.uncknown);
+                                    }
+                                    switch (weatherInfo[3]) {
+                                        case "skc_n":
+                                            imageView2.setImageResource(R.drawable.skc_n);
+                                            break;
+                                        case "skc_d":
+                                            imageView2.setImageResource(R.drawable.skc_d);
+                                            break;
+                                        case "bkn_n":
+                                            imageView2.setImageResource(R.drawable.bkn_n);
+                                            break;
+                                        case "bkn_d":
+                                            imageView2.setImageResource(R.drawable.bkn_d);
+                                            break;
+                                        case "ovc_sn":
+                                            imageView2.setImageResource(R.drawable.ovc_sn);
+                                            break;
+                                        case "ovc_m_sn":
+                                            imageView2.setImageResource(R.drawable.ovc_m_sn);
+                                            break;
+                                        case "ovc_m_ra":
+                                            imageView2.setImageResource(R.drawable.ovc_m_ra);
+                                            break;
+                                        case "ovc":
+                                            imageView2.setImageResource(R.drawable.ovc);
+                                            break;
+                                        case "ovc_r_sn":
+                                            imageView2.setImageResource(R.drawable.ovc_r_sn);
+                                            break;
+                                        case "ovc_r":
+                                            imageView2.setImageResource(R.drawable.ovc_r);
+                                            break;
+                                        case "bkn_p_ra_d":
+                                            imageView2.setImageResource(R.drawable.bkn_p_ra_d);
+                                            break;
+                                        case "bkn_p_ra_n":
+                                            imageView2.setImageResource(R.drawable.bkn_p_ra_n);
+                                            break;
+                                        default:
+                                            imageView2.setImageResource(R.drawable.uncknown);
                                     }
                                 }else return;
                             }
