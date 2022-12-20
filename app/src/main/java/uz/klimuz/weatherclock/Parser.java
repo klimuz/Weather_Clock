@@ -48,10 +48,10 @@ public class Parser {
                 imgCurr = "ovc_m_ra";
             } else if (stringsNow.contains("ovc ")){ //пасмурно
                 imgCurr = "ovc";
-            } else if (stringsNow.contains("ovc-r-sn ")){ //дождь со снегом
-                imgCurr = "ovc_r_sn";
-            } else if (stringsNow.contains("ovc-r ")){ //дождь
-                imgCurr = "ovc_r";
+            } else if (stringsNow.contains("ovc-ra-sn ")){ //дождь со снегом
+                imgCurr = "ovc_ra_sn";
+            } else if (stringsNow.contains("ovc-ra ")){ //дождь
+                imgCurr = "ovc_ra";
             } else if (stringsNow.contains("bkn-p-ra-d ")){ //ливень днём
                 imgCurr = "bkn_p_ra_d";
             } else if (stringsNow.contains("bkn-p-ra-n ")){ //ливень night
@@ -67,10 +67,13 @@ public class Parser {
         try {
             Document page2 = getPage();
             Elements forecast = page2.select("ul[class=swiper-wrapper]");
-            Element forecast1 = forecast.select("li[class=forecast-briefly__day swiper-slide]").first();
-            Element tempTomorr = forecast1.select("span[class=temp__value temp__value_with-unit]").first();
+            Element forecast1 = forecast.get(1);            //select("li[class=forecast-briefly__day swiper-slide]").first();
+            Elements forecast2 = forecast1.getAllElements();
+            Element forecast3 = forecast2.select("li[class=forecast-briefly__day swiper-slide]").get(1);
+            Element tempTomorr = forecast3.select("span[class=temp__value temp__value_with-unit]").first();
             tempForecast = tempTomorr.text();
-            stringsFor = forecast1.select("img").toString();
+            stringsFor = forecast3.select("img").toString();
+            Log.i("fff:", String.valueOf(stringsFor));
             if (stringsFor.contains("skc-n ")){ //ясно night
                 imgForecast = "skc_n";
             } else if (stringsFor.contains("skc-d ")){ //ясно day
@@ -87,10 +90,10 @@ public class Parser {
                 imgForecast = "ovc_m_ra";
             } else if (stringsFor.contains("ovc ")){ //пасмурно
                 imgForecast = "ovc";
-            } else if (stringsFor.contains("ovc-r-sn ")){ //дождь со снегом
-                imgForecast = "ovc_r_sn";
-            } else if (stringsFor.contains("ovc-r ")){ //дождь
-                imgForecast = "ovc_r";
+            } else if (stringsFor.contains("ovc-ra-sn ")){ //дождь со снегом
+                imgForecast = "ovc_ra_sn";
+            } else if (stringsFor.contains("ovc-ra ")){ //дождь
+                imgForecast = "ovc_ra";
             } else if (stringsFor.contains("bkn-p-ra-d ")){ //ливень днём
                 imgForecast = "bkn_p_ra_d";
             } else if (stringsFor.contains("bkn-p-ra-n ")){ //ливень night
@@ -101,7 +104,7 @@ public class Parser {
         }catch (NullPointerException e) {
             e.printStackTrace();
         }
-//        Log.i("fff:", tempForecast);
+
         return factWeatherInfo;
     }
 }

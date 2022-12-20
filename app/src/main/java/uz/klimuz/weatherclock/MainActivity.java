@@ -99,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
                                         case "ovc":
                                             imageView.setImageResource(R.drawable.ovc);
                                             break;
-                                        case "ovc_r_sn":
-                                            imageView.setImageResource(R.drawable.ovc_r_sn);
+                                        case "ovc_ra_sn":
+                                            imageView.setImageResource(R.drawable.ovc_ra_sn);
                                             break;
-                                        case "ovc_r":
-                                            imageView.setImageResource(R.drawable.ovc_r);
+                                        case "ovc_ra":
+                                            imageView.setImageResource(R.drawable.ovc_ra);
                                             break;
                                         case "bkn_p_ra_d":
                                             imageView.setImageResource(R.drawable.bkn_p_ra_d);
@@ -139,11 +139,11 @@ public class MainActivity extends AppCompatActivity {
                                         case "ovc":
                                             imageView2.setImageResource(R.drawable.ovc);
                                             break;
-                                        case "ovc_r_sn":
-                                            imageView2.setImageResource(R.drawable.ovc_r_sn);
+                                        case "ovc_ra_sn":
+                                            imageView2.setImageResource(R.drawable.ovc_ra_sn);
                                             break;
-                                        case "ovc_r":
-                                            imageView2.setImageResource(R.drawable.ovc_r);
+                                        case "ovc_ra":
+                                            imageView2.setImageResource(R.drawable.ovc_ra);
                                             break;
                                         case "bkn_p_ra_d":
                                             imageView2.setImageResource(R.drawable.bkn_p_ra_d);
