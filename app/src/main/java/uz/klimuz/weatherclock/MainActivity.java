@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                                             imageView.setImageResource(R.drawable.bkn_p_ra_n);
                                             break;
                                         default:
-                                            imageView.setImageResource(R.drawable.uncknown);
+                                            imageView.setImageResource(R.drawable.unknown);
                                     }
                                     switch (weatherInfo[3]) {
                                         case "skc_n":
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                                             imageView2.setImageResource(R.drawable.bkn_p_ra_n);
                                             break;
                                         default:
-                                            imageView2.setImageResource(R.drawable.uncknown);
+                                            imageView2.setImageResource(R.drawable.unknown);
                                     }
                                 }else return;
                             }

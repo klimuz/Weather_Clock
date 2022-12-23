@@ -28,8 +28,12 @@ public class Parser {
         try {
             Document page = getPage();
             Element informer = page.select("div[class=fact__temp-wrap]").first();
-            Element tempNow = informer.select("span[class=temp__value temp__value_with-unit]").first();
+            Element tempNow = null;
+            if (informer != null) {
+                tempNow = informer.select("span[class=temp__value temp__value_with-unit]").first();
+            }
             tempCurr = tempNow.text();
+
             stringsNow = informer.select("img").toString();
 
             if (stringsNow.contains("skc-n ")){ //ясно night
@@ -67,13 +71,19 @@ public class Parser {
         try {
             Document page2 = getPage();
             Elements forecast = page2.select("ul[class=swiper-wrapper]");
-            Element forecast1 = forecast.get(1);            //select("li[class=forecast-briefly__day swiper-slide]").first();
-            Elements forecast2 = forecast1.getAllElements();
+            Elements forecast2 = null;
+            Element forecast1 = null;
+//            Log.i("ggg:", String.valueOf(forecast));
+            if (forecast.size() >= 2) {
+                forecast1 = forecast.get(1);
+                forecast2 = forecast1.getAllElements();
+            }
+            Log.i("ggg:", String.valueOf(forecast.size()));
             Element forecast3 = forecast2.select("li[class=forecast-briefly__day swiper-slide]").get(1);
             Element tempTomorr = forecast3.select("span[class=temp__value temp__value_with-unit]").first();
             tempForecast = tempTomorr.text();
             stringsFor = forecast3.select("img").toString();
-            Log.i("fff:", String.valueOf(stringsFor));
+//
             if (stringsFor.contains("skc-n ")){ //ясно night
                 imgForecast = "skc_n";
             } else if (stringsFor.contains("skc-d ")){ //ясно day
@@ -101,10 +111,11 @@ public class Parser {
             }
             factWeatherInfo[2] = tempForecast;
             factWeatherInfo[3] = imgForecast;
+
         }catch (NullPointerException e) {
             e.printStackTrace();
         }
-
+        Log.i("fff:", "temp1:" + tempCurr + "\n" + "img1:" + imgCurr + "\n" + "temp2:" + tempForecast + "\n" + "img2:" + imgForecast);
         return factWeatherInfo;
     }
 }
