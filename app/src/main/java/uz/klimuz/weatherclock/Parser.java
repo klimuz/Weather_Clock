@@ -9,6 +9,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Calendar;
 
 public class Parser {
     private static Document getPage() throws IOException {
@@ -69,21 +70,33 @@ public class Parser {
             e.printStackTrace();
         }
         try {
+            Calendar calendar = Calendar.getInstance();
             Document page2 = getPage();
             Elements forecast = page2.select("ul[class=swiper-wrapper]");
+            Element forecast1;
             Elements forecast2 = null;
-            Element forecast1 = null;
+            Element forecast3 = null;
 //            Log.i("ggg:", String.valueOf(forecast));
             if (forecast.size() >= 2) {
                 forecast1 = forecast.get(1);
                 forecast2 = forecast1.getAllElements();
             }
-            Log.i("ggg:", String.valueOf(forecast.size()));
-            Element forecast3 = forecast2.select("li[class=forecast-briefly__day swiper-slide]").get(1);
+
+            if (calendar.get(Calendar.DAY_OF_WEEK) == 7){ //in saturday forecast for sunday
+                forecast3 = forecast2.select("li[class=forecast-briefly__day forecast-briefly__day_sunday forecast-briefly__day_weekend swiper-slide]").get(0);
+            } else if (calendar.get(Calendar.DAY_OF_WEEK) == 1){ //in sunday forecast for monday
+                forecast3 = forecast2.select("li[class=forecast-briefly__day forecast-briefly__day_weekstart swiper-slide]").get(0);
+            } else if (calendar.get(Calendar.DAY_OF_WEEK) == 6){  //in friday forecast for saturday
+                forecast3 = forecast2.select("li[class=forecast-briefly__day forecast-briefly__day_weekend swiper-slide]").get(0);
+            } else { // in other weekdays
+                forecast3 = forecast2.select("li[class=forecast-briefly__day swiper-slide]").get(1);
+            }
             Element tempTomorr = forecast3.select("span[class=temp__value temp__value_with-unit]").first();
             tempForecast = tempTomorr.text();
             stringsFor = forecast3.select("img").toString();
-//
+
+            Log.i("ggg:", String.valueOf(page2));
+
             if (stringsFor.contains("skc-n ")){ //ясно night
                 imgForecast = "skc_n";
             } else if (stringsFor.contains("skc-d ")){ //ясно day
