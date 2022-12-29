@@ -13,7 +13,7 @@ import java.util.Calendar;
 
 public class Parser {
     private static Document getPage() throws IOException {
-        String url = "https://yandex.uz/pogoda/tashkent?utm_campaign=informer&utm_content=main_informer&utm_medium=web&utm_source=home&lat=41.311151&lon=69.279737";
+        String url = "https://yandex.uz/pogoda/"; //"https://yandex.uz/pogoda/tashkent?utm_campaign=informer&utm_content=main_informer&utm_medium=web&utm_source=home&lat=41.311151&lon=69.279737";
 
         Document page = Jsoup.parse(new URL(url), 10000);
         return page;
@@ -30,12 +30,15 @@ public class Parser {
             Document page = getPage();
             Element informer = page.select("div[class=fact__temp-wrap]").first();
             Element tempNow = null;
+            Elements hourly = page.select("div[class=swiper-container fact__hourly-swiper]");
             if (informer != null) {
                 tempNow = informer.select("span[class=temp__value temp__value_with-unit]").first();
             }
             tempCurr = tempNow.text();
 
             stringsNow = informer.select("img").toString();
+
+            Log.i("fff:", String.valueOf(hourly));
 
             if (stringsNow.contains("skc-n ")){ //ясно night
                 imgCurr = "skc_n";
@@ -62,7 +65,7 @@ public class Parser {
             } else if (stringsNow.contains("bkn-p-ra-n ")){ //ливень night
                 imgCurr = "bkn_p_ra_n";
             }
-           // Log.i("fff:", tempCurr);
+
             factWeatherInfo[0] = tempCurr;
             factWeatherInfo[1] = imgCurr;
 
@@ -128,7 +131,7 @@ public class Parser {
         }catch (NullPointerException e) {
             e.printStackTrace();
         }
-        Log.i("fff:", "temp1:" + tempCurr + "\n" + "img1:" + imgCurr + "\n" + "temp2:" + tempForecast + "\n" + "img2:" + imgForecast);
+//        Log.i("fff:", "temp1:" + tempCurr + "\n" + "img1:" + imgCurr + "\n" + "temp2:" + tempForecast + "\n" + "img2:" + imgForecast);
         return factWeatherInfo;
     }
 }

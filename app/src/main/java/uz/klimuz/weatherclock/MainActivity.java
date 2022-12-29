@@ -62,14 +62,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         backwardButton.setEnabled(false);
-        forecastTextView.setText("Next " + counterForecast + " hours");
+        forecastTextView.setText("In " + counterForecast + " hours");
 
 
         backwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 counterForecast -= 3;
-                forecastTextView.setText("Next " + counterForecast + " hours");
+                forecastTextView.setText("In " + counterForecast + " hours");
                 if (counterForecast <= 3){
                     backwardButton.setEnabled(false);
                 } else {
@@ -83,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 counterForecast += 3;
-                forecastTextView.setText("Next " + counterForecast + " hours");
-                if (counterForecast >= 48){
+                forecastTextView.setText("In " + counterForecast + " hours");
+                if (counterForecast >= 24){
                     forwardButton.setEnabled(false);
                 } else {
                     forwardButton.setEnabled(true);
