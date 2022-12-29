@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,198 +8,208 @@
     android:keepScreenOn="true"
     android:orientation="horizontal"
     tools:context=".MainActivity">
+    <RelativeLayout
+        android:id="@+id/nowWeatherLayout"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentLeft="true">
 
-    <TextView
-        android:id="@+id/dateTextView"
+        <TextView
+            android:id="@+id/todayTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Now"
+            android:textColor="@color/red"
+            android:textSize="40sp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_marginTop="60dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/weathertype"
+            android:src="@drawable/unknown"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/todayTextView"/>
+
+        <LinearLayout
+            android:id="@+id/tempRowLayout"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/imageView">
+
+            <TextView
+                android:id="@+id/tempTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="XXX"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/purple_700"
+                android:textSize="96sp" />
+
+            <TextView
+                android:id="@+id/celsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/celsium"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="@color/purple_700"
+                android:textSize="96sp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="89dp"
-        android:layout_marginLeft="89dp"
-        android:layout_marginEnd="61dp"
-        android:layout_marginRight="61dp"
-        android:layout_marginBottom="10dp"
-        android:text="January 5 2022"
-        android:textColor="@color/purple_700"
-        android:textSize="96sp"
-        app:layout_constraintBottom_toTopOf="@+id/weekDayTextView"
-        app:layout_constraintEnd_toStartOf="@+id/tomorrowTextView"
-        app:layout_constraintStart_toEndOf="@+id/todayTextView"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="60dp"
+        android:text="@string/update"
+        android:layout_below="@id/tempRowLayout"
+        android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/weekDayTextView"
+    <RelativeLayout
+        android:id="@+id/dateLayout"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Sunday"
-        android:textColor="@color/purple_700"
-        android:textSize="96sp"
-        app:layout_constraintBottom_toTopOf="@+id/timeTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/dateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="January 5 2022"
+            android:textColor="@color/purple_700"
+            android:layout_centerHorizontal="true"
+            android:textSize="96sp"/>
+
+        <TextView
+            android:id="@+id/weekDayTextView"
+            android:layout_below="@id/dateTextView"
+            android:layout_marginTop="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sunday"
+            android:textColor="@color/purple_700"
+            android:layout_centerHorizontal="true"
+            android:textSize="96sp"/>
 
     <TextView
         android:id="@+id/timeTextView"
+        android:layout_below="@+id/weekDayTextView"
+        android:layout_marginTop="60dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="100dp"
         android:text="00 : 00"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/purple_700"
         android:textSize="150sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weekDayTextView" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/tempTextView"
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/forecastLayout"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="79dp"
-        android:layout_marginLeft="79dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="205dp"
-        android:text="XXX"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/purple_700"
-        android:textSize="96sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true">
 
-    <TextView
-        android:id="@+id/celsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="89dp"
-        android:layout_marginRight="89dp"
-        android:layout_marginBottom="205dp"
-        android:text="@string/celsium"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/purple_700"
-        android:textSize="96sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/timeTextView"
-        app:layout_constraintStart_toEndOf="@+id/tempTextView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        <TextView
+            android:id="@+id/forecastTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forecast"
+            android:textColor="@color/red"
+            android:textSize="40sp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="69dp"
-        android:layout_marginLeft="69dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="214dp"
-        android:layout_marginRight="214dp"
-        android:contentDescription="@string/weathertype"
-        android:src="@drawable/unknown"
-        app:layout_constraintEnd_toStartOf="@+id/weekDayTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/todayTextView" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_marginTop="60dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/weathertype"
+            android:src="@drawable/unknown"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/forecastTextView" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="593dp"
-        android:layout_marginLeft="593dp"
-        android:layout_marginEnd="592dp"
-        android:layout_marginRight="592dp"
-        android:layout_marginBottom="101dp"
-        android:padding="8sp"
-        android:text="@string/update"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeTextView" />
+        <LinearLayout
+            android:id="@+id/tempRowLayout2"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/imageView2">
 
-    <TextView
-        android:id="@+id/todayTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="113dp"
-        android:layout_marginLeft="113dp"
-        android:layout_marginTop="99dp"
-        android:text="Now"
-        android:textColor="@color/red"
-        android:textSize="40sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/temp2TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XXX"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/purple_700"
+            android:textSize="96sp" />
 
-    <TextView
-        android:id="@+id/tomorrowTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="99dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:text="Tomorrow"
-        android:textColor="@color/red"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/cels2TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/celsium"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/purple_700"
+            android:textSize="96sp"
+            android:visibility="visible"/>
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="216dp"
-        android:layout_marginLeft="216dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginRight="67dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/weekDayTextView"
-        app:layout_constraintTop_toBottomOf="@+id/tomorrowTextView"
-        app:srcCompat="@drawable/unknown" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/buttonsRowLayout"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tempRowLayout2">
 
-    <TextView
-        android:id="@+id/temp2TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="205dp"
-        android:text="XXX"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/purple_700"
-        android:textSize="96sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/timeTextView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            <Button
+                android:id="@+id/backwardButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="BW"/>
 
-    <TextView
-        android:id="@+id/cels2TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginRight="76dp"
-        android:layout_marginBottom="205dp"
-        android:text="@string/celsium"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/purple_700"
-        android:textSize="96sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/temp2TextView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            <Button
+                android:id="@+id/forwardButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="FW"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
