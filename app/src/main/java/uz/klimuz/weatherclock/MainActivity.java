@@ -21,12 +21,16 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     ImageView imageView2;
     TextView temp2TextView;
+    Button backwardButton;
+    Button forwardButton;
+    TextView forecastTextView;
 
     int month;
     int weekDay;
     int hours;
     int minutes;
-    int counter;
+    int counterTime;
+    int counterForecast = 3;
     String[] weatherInfo = new String[4];//0-temp current; 1-image current; 2-temp forecast; 3-image forecast
 
     @SuppressLint("MissingInflatedId")
@@ -44,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         imageView2 = findViewById(R.id.imageView2);
         temp2TextView = findViewById(R.id.temp2TextView);
-
+        backwardButton = findViewById(R.id.backwardButton);
+        forwardButton = findViewById(R.id.forwardButton);
+        forecastTextView = findViewById(R.id.forecastTextView);
         button = findViewById(R.id.button);
         timeUpdate();
         updateWeather();
@@ -54,10 +60,42 @@ public class MainActivity extends AppCompatActivity {
                 updateWeather();
             }
         });
+
+        backwardButton.setEnabled(false);
+        forecastTextView.setText("Next " + counterForecast + " hours");
+
+
+        backwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                counterForecast -= 3;
+                forecastTextView.setText("Next " + counterForecast + " hours");
+                if (counterForecast <= 3){
+                    backwardButton.setEnabled(false);
+                } else {
+                    backwardButton.setEnabled(true);
+                }
+                forwardButton.setEnabled(true);
+            }
+        });
+
+        forwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                counterForecast += 3;
+                forecastTextView.setText("Next " + counterForecast + " hours");
+                if (counterForecast >= 48){
+                    forwardButton.setEnabled(false);
+                } else {
+                    forwardButton.setEnabled(true);
+                }
+                backwardButton.setEnabled(true);
+            }
+        });
     }
 
     private void updateWeather() {
-        counter = 0;
+        counterTime = 0;
         final Handler weatherHandler = new Handler();
         new Thread(new Runnable() {
                     @Override
@@ -269,8 +307,8 @@ public class MainActivity extends AppCompatActivity {
                             minutesString = String.valueOf(minutes);
                         }
                         timeTextVew.setText(hoursString + " : " + minutesString);
-                        counter++;
-                        if (counter == 600){
+                        counterTime++;
+                        if (counterTime == 600){
                             updateWeather();
                         }
                         timeUpdate();

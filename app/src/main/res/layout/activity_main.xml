@@ -198,7 +198,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="BW"/>
+                android:text="BWD"/>
 
             <Button
                 android:id="@+id/forwardButton"
@@ -206,7 +206,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:layout_marginLeft="8dp"
-                android:text="FW"/>
+                android:text="FWD"/>
 
         </LinearLayout>
 
