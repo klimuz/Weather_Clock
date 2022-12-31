@@ -10,7 +10,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class Parser {
     private static Document getPage() throws IOException {
@@ -50,22 +49,16 @@ public class Parser {
         } else if (imageQuiery.contains("sunrise ")){ //восход
             result = "sunrise";
         }
-
         return result;
     }
     public static ArrayList mainMethod() throws IOException {
         String tempCurr = "";
         String imgCurr = "";
-        String tempForecast = "";
-        String imgForecast = "";
         String imageCode = "";
-        String stringsFor = "";
-        String[] factWeatherInfo = new String[4];
         ArrayList<String> hourlyInfo = new ArrayList();
         try {
             Document page = getPage();
             Element informer = page.select("div[class=fact__temp-wrap]").first();
-//            Element tempNow = null;
             Element hourly = page.select("div[class=swiper-container fact__hourly-swiper]").first();
             Elements hours = hourly.select("li[class=fact__hour swiper-slide]");
             if (informer != null) {
@@ -79,22 +72,12 @@ public class Parser {
                         hourlyInfo.add(temperature);
                         imageCode = imageDecoder(element.select("img").toString());
                         hourlyInfo.add(imageCode);
-                       // Log.i("fff:", temperature + "\n" + imageCode + "\n");
                     }
                 }
             }
-            int index = 0;
-            for (String string : hourlyInfo) {
-                Log.i("arrayFirst:", index + " " + string);
-                index++;
-            }
-            Log.i("ddd:", String.valueOf(hourlyInfo.size()));
-
         }catch (NullPointerException e){
             e.printStackTrace();
         }
-
         return hourlyInfo;
     }
-
 }

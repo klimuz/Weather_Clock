@@ -182,48 +182,7 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 if (weatherInfo.size() > 0) {
                                     tempTextView.setText(weatherInfo.get(0));
-
-                                    String weatherCode = weatherInfo.get(1);
-                                    switch (weatherCode) {
-                                        case "skc_n":
-                                            imageView.setImageResource(R.drawable.skc_n);
-                                            break;
-                                        case "skc_d":
-                                            imageView.setImageResource(R.drawable.skc_d);
-                                            break;
-                                        case "bkn_n":
-                                            imageView.setImageResource(R.drawable.bkn_n);
-                                            break;
-                                        case "bkn_d":
-                                            imageView.setImageResource(R.drawable.bkn_d);
-                                            break;
-                                        case "ovc_sn":
-                                            imageView.setImageResource(R.drawable.ovc_sn);
-                                            break;
-                                        case "ovc_m_sn":
-                                            imageView.setImageResource(R.drawable.ovc_m_sn);
-                                            break;
-                                        case "ovc_m_ra":
-                                            imageView.setImageResource(R.drawable.ovc_m_ra);
-                                            break;
-                                        case "ovc":
-                                            imageView.setImageResource(R.drawable.ovc);
-                                            break;
-                                        case "ovc_ra_sn":
-                                            imageView.setImageResource(R.drawable.ovc_ra_sn);
-                                            break;
-                                        case "ovc_ra":
-                                            imageView.setImageResource(R.drawable.ovc_ra);
-                                            break;
-                                        case "bkn_p_ra_d":
-                                            imageView.setImageResource(R.drawable.bkn_p_ra_d);
-                                            break;
-                                        case "bkn_p_ra_n":
-                                            imageView.setImageResource(R.drawable.bkn_p_ra_n);
-                                            break;
-                                        default:
-                                            imageView.setImageResource(R.drawable.unknown);
-                                    }
+                                    imageView = mapImage(imageView, weatherInfo.get(1));
                                     drawForecast();
 
                                 }else return;
@@ -232,7 +191,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).start();
         }
-
 
         private void timeUpdate() {
         final Handler timeHandler = new Handler();

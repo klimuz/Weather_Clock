@@ -176,7 +176,7 @@
             android:id="@+id/cels2TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/celsium"
+            android:text="C"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/purple_700"
             android:textSize="96sp"
