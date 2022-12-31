@@ -61,7 +61,7 @@ public class Parser {
         String imageCode = "";
         String stringsFor = "";
         String[] factWeatherInfo = new String[4];
-        ArrayList hourlyInfo = new ArrayList();
+        ArrayList<String> hourlyInfo = new ArrayList();
         try {
             Document page = getPage();
             Element informer = page.select("div[class=fact__temp-wrap]").first();
@@ -69,7 +69,6 @@ public class Parser {
             Element hourly = page.select("div[class=swiper-container fact__hourly-swiper]").first();
             Elements hours = hourly.select("li[class=fact__hour swiper-slide]");
             if (informer != null) {
-                hourlyInfo.clear();
                 tempCurr = informer.select("span[class=temp__value temp__value_with-unit]").first().text();
                 imgCurr = imageDecoder(informer.select("img").toString());
                 hourlyInfo.add(0, tempCurr);
@@ -80,11 +79,15 @@ public class Parser {
                         hourlyInfo.add(temperature);
                         imageCode = imageDecoder(element.select("img").toString());
                         hourlyInfo.add(imageCode);
-                        Log.i("fff:", temperature + "\n" + imageCode + "\n");
+                       // Log.i("fff:", temperature + "\n" + imageCode + "\n");
                     }
                 }
             }
-
+            int index = 0;
+            for (String string : hourlyInfo) {
+                Log.i("arrayFirst:", index + " " + string);
+                index++;
+            }
             Log.i("ddd:", String.valueOf(hourlyInfo.size()));
 
         }catch (NullPointerException e){
