@@ -67,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
         timeUpdate();
         updateWeather();
 
-
-//        drawForecast();
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
