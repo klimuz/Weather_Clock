@@ -3,6 +3,7 @@ package uz.klimuz.weatherclock;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -10,28 +11,39 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
-    TextView dateTextVew;
-    TextView weekDayTextVew;
-    TextView timeTextVew;
-    TextView tempTextView;
-    Button button;
-    ImageView imageView;
-    ImageView imageView2;
-    TextView temp2TextView;
-    Button backwardButton;
-    Button forwardButton;
-    TextView forecastTextView;
+    private TextView dateTextVew;
+    private TextView weekDayTextVew;
+    private TextView timeTextVew;
+    private TextView tempTextView;
+    private Button button;
+    private ImageView imageView;
+    private ImageView imageView2;
+    private TextView temp2TextView;
+    private Button backwardButton;
+    private Button forwardButton;
+    private TextView forecastTextView;
 
-    int month;
-    int weekDay;
-    int hours;
-    int minutes;
-    int counterTime;
-    int counterForecast = 3;
-    String[] weatherInfo = new String[4];//0-temp current; 1-image current; 2-temp forecast; 3-image forecast
+    private int month;
+    private int weekDay;
+    private int hours;
+    private int minutes;
+    private int counterTime;
+    private int counterForecast = 3;
+/*weatherInfo
+     00-temp current;
+     01-image current;
+     02-temp 1hour;
+     03-image 1hour;
+     04-temp 2hour;
+     05-image 2hour;
+     06-temp 3hour;
+     07-image 3hour;
+     08-etc; */
+    private ArrayList<String> weatherInfo = new ArrayList();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -54,22 +66,22 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.button);
         timeUpdate();
         updateWeather();
+
+
+//        drawForecast();
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateWeather();
             }
         });
-
         backwardButton.setEnabled(false);
-        forecastTextView.setText("In " + counterForecast + " hours");
-
-
         backwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 counterForecast -= 3;
-                forecastTextView.setText("In " + counterForecast + " hours");
+                drawForecast();
                 if (counterForecast <= 3){
                     backwardButton.setEnabled(false);
                 } else {
@@ -83,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 counterForecast += 3;
-                forecastTextView.setText("In " + counterForecast + " hours");
+                drawForecast();
                 if (counterForecast >= 24){
                     forwardButton.setEnabled(false);
                 } else {
@@ -92,6 +104,58 @@ public class MainActivity extends AppCompatActivity {
                 backwardButton.setEnabled(true);
             }
         });
+    }
+
+    private void drawForecast(){
+        if (weatherInfo.size() > counterForecast + 3) {
+            forecastTextView.setText("In " + counterForecast + " hours");
+            temp2TextView.setText(weatherInfo.get(counterForecast * 2));
+            imageView2 = mapImage(imageView2, weatherInfo.get(counterForecast * 2 + 1));
+        }
+    }
+
+    private ImageView mapImage(ImageView imageViewToMap, String imageCode){
+        switch (imageCode) {
+            case "skc_n":
+                imageViewToMap.setImageResource(R.drawable.skc_n);
+                break;
+            case "skc_d":
+                imageViewToMap.setImageResource(R.drawable.skc_d);
+                break;
+            case "bkn_n":
+                imageViewToMap.setImageResource(R.drawable.bkn_n);
+                break;
+            case "bkn_d":
+                imageViewToMap.setImageResource(R.drawable.bkn_d);
+                break;
+            case "ovc_sn":
+                imageViewToMap.setImageResource(R.drawable.ovc_sn);
+                break;
+            case "ovc_m_sn":
+                imageViewToMap.setImageResource(R.drawable.ovc_m_sn);
+                break;
+            case "ovc_m_ra":
+                imageViewToMap.setImageResource(R.drawable.ovc_m_ra);
+                break;
+            case "ovc":
+                imageViewToMap.setImageResource(R.drawable.ovc);
+                break;
+            case "ovc_ra_sn":
+                imageViewToMap.setImageResource(R.drawable.ovc_ra_sn);
+                break;
+            case "ovc_ra":
+                imageViewToMap.setImageResource(R.drawable.ovc_ra);
+                break;
+            case "bkn_p_ra_d":
+                imageViewToMap.setImageResource(R.drawable.bkn_p_ra_d);
+                break;
+            case "bkn_p_ra_n":
+                imageViewToMap.setImageResource(R.drawable.bkn_p_ra_n);
+                break;
+            default:
+                imageViewToMap.setImageResource(R.drawable.unknown);
+        }
+        return imageViewToMap;
     }
 
     private void updateWeather() {
@@ -103,101 +167,31 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             Parser parser = new Parser();
                             weatherInfo = parser.mainMethod();
+
+                            int index = 0;
+                            for (String string : weatherInfo){
+                                Log.i("arrayMain:", index + " " + string);
+                                index ++;
+
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                         tempTextView.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (weatherInfo[0] != null && weatherInfo[1] != null && weatherInfo[2] != null && weatherInfo[3] != null) {
-                                    tempTextView.setText(weatherInfo[0]);
-                                    temp2TextView.setText(weatherInfo[2]);
-                                    switch (weatherInfo[1]) {
-                                        case "skc_n":
-                                            imageView.setImageResource(R.drawable.skc_n);
-                                            break;
-                                        case "skc_d":
-                                            imageView.setImageResource(R.drawable.skc_d);
-                                            break;
-                                        case "bkn_n":
-                                            imageView.setImageResource(R.drawable.bkn_n);
-                                            break;
-                                        case "bkn_d":
-                                            imageView.setImageResource(R.drawable.bkn_d);
-                                            break;
-                                        case "ovc_sn":
-                                            imageView.setImageResource(R.drawable.ovc_sn);
-                                            break;
-                                        case "ovc_m_sn":
-                                            imageView.setImageResource(R.drawable.ovc_m_sn);
-                                            break;
-                                        case "ovc_m_ra":
-                                            imageView.setImageResource(R.drawable.ovc_m_ra);
-                                            break;
-                                        case "ovc":
-                                            imageView.setImageResource(R.drawable.ovc);
-                                            break;
-                                        case "ovc_ra_sn":
-                                            imageView.setImageResource(R.drawable.ovc_ra_sn);
-                                            break;
-                                        case "ovc_ra":
-                                            imageView.setImageResource(R.drawable.ovc_ra);
-                                            break;
-                                        case "bkn_p_ra_d":
-                                            imageView.setImageResource(R.drawable.bkn_p_ra_d);
-                                            break;
-                                        case "bkn_p_ra_n":
-                                            imageView.setImageResource(R.drawable.bkn_p_ra_n);
-                                            break;
-                                        default:
-                                            imageView.setImageResource(R.drawable.unknown);
-                                    }
-                                    switch (weatherInfo[3]) {
-                                        case "skc_n":
-                                            imageView2.setImageResource(R.drawable.skc_n);
-                                            break;
-                                        case "skc_d":
-                                            imageView2.setImageResource(R.drawable.skc_d);
-                                            break;
-                                        case "bkn_n":
-                                            imageView2.setImageResource(R.drawable.bkn_n);
-                                            break;
-                                        case "bkn_d":
-                                            imageView2.setImageResource(R.drawable.bkn_d);
-                                            break;
-                                        case "ovc_sn":
-                                            imageView2.setImageResource(R.drawable.ovc_sn);
-                                            break;
-                                        case "ovc_m_sn":
-                                            imageView2.setImageResource(R.drawable.ovc_m_sn);
-                                            break;
-                                        case "ovc_m_ra":
-                                            imageView2.setImageResource(R.drawable.ovc_m_ra);
-                                            break;
-                                        case "ovc":
-                                            imageView2.setImageResource(R.drawable.ovc);
-                                            break;
-                                        case "ovc_ra_sn":
-                                            imageView2.setImageResource(R.drawable.ovc_ra_sn);
-                                            break;
-                                        case "ovc_ra":
-                                            imageView2.setImageResource(R.drawable.ovc_ra);
-                                            break;
-                                        case "bkn_p_ra_d":
-                                            imageView2.setImageResource(R.drawable.bkn_p_ra_d);
-                                            break;
-                                        case "bkn_p_ra_n":
-                                            imageView2.setImageResource(R.drawable.bkn_p_ra_n);
-                                            break;
-                                        default:
-                                            imageView2.setImageResource(R.drawable.unknown);
-                                    }
+                                if (weatherInfo.size() > 0) {
+                                    tempTextView.setText(weatherInfo.get(0));
+                                    imageView = mapImage(imageView, weatherInfo.get(1));
+                                    drawForecast();
+
                                 }else return;
                             }
                         });
                     }
                 }).start();
         }
+
         private void timeUpdate() {
         final Handler timeHandler = new Handler();
         new Thread(new Runnable() {
