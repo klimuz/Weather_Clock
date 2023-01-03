@@ -7,4 +7,6 @@
     <dimen name="marginSideSizeDate">@dimen/_10sdp</dimen>
     <dimen name="textSizeTime">@dimen/_100sdp</dimen>
     <dimen name="buttonPaddingSize">@dimen/_4sdp</dimen>
+    <dimen name="buttonHeight">@dimen/_55sdp</dimen>
+    <dimen name="imageSize">@dimen/_96sdp</dimen>
 </resources>
