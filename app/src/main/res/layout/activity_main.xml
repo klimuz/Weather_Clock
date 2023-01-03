@@ -65,7 +65,7 @@
 
         </LinearLayout>
 
-        ;.<Button
+        <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/buttonHeight"
@@ -78,8 +78,6 @@
     <RelativeLayout
         android:id="@+id/dateLayout"
         android:layout_marginTop="@dimen/marginTopSize"
-        android:layout_marginLeft="@dimen/marginSideSizeDate"
-        android:layout_marginRight="@dimen/marginSideSizeDate"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"

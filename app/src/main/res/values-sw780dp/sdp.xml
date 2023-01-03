@@ -34,7 +34,7 @@
     <dimen name="_32sdp">32.00dp</dimen>
     <dimen name="_33sdp">33.00dp</dimen>
     <dimen name="_34sdp">34.00dp</dimen>
-    <dimen name="_35sdp">35.00dp</dimen>
+    <dimen name="_35sdp">45.00dp</dimen>
     <dimen name="_36sdp">36.00dp</dimen>
     <dimen name="_37sdp">37.00dp</dimen>
     <dimen name="_38sdp">38.00dp</dimen>
@@ -49,7 +49,7 @@
     <dimen name="_47sdp">47.00dp</dimen>
     <dimen name="_48sdp">48.00dp</dimen>
     <dimen name="_49sdp">49.00dp</dimen>
-    <dimen name="_50sdp">50.00dp</dimen>
+    <dimen name="_50sdp">100.00dp</dimen>
     <dimen name="_51sdp">51.00dp</dimen>
     <dimen name="_52sdp">52.00dp</dimen>
     <dimen name="_53sdp">53.00dp</dimen>
@@ -99,7 +99,7 @@
     <dimen name="_97sdp">97.00dp</dimen>
     <dimen name="_98sdp">98.00dp</dimen>
     <dimen name="_99sdp">99.00dp</dimen>
-    <dimen name="_100sdp">150.00dp</dimen>
+    <dimen name="_100sdp">200.00dp</dimen>
     <dimen name="_101sdp">101.00dp</dimen>
     <dimen name="_102sdp">102.00dp</dimen>
     <dimen name="_103sdp">103.00dp</dimen>
